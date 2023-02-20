@@ -18,8 +18,26 @@ entry_weight = Entry(GUI,font=('Angsana New',18))
 entry_height.grid(row=1, column=1)
 entry_weight.grid(row=2, column=1)
 
+def CheckNum(height, weight): 
+
+        try : 
+             float(height) and float(weight)
+        except : 
+                show_messagebox("Error","Plase input number only")
+
+        h,w  = float(height),float(weight)
+
+        if h < 1 or w  < 1: 
+                show_messagebox("Error","Plase input more than 0")
+        elif h > 300 and  w > 500: 
+                show_messagebox("Error","Error, maximum number")
+        else : 
+                return float(height), float(weight)
+
+             
+
 def CAL_BMI() : 
-    height, weight = int(entry_height.get()), int(entry_weight.get())
+    height, weight = CheckNum(entry_height.get(), entry_weight.get())
 
     BMI = round(weight/pow((height/100),2),2)
 
@@ -34,10 +52,10 @@ def CAL_BMI() :
     else : 
             message = 'BMI : {} \nอยู่ในเกณฑ์ น้ำหนักน้อยกว่ามาตรฐาน'.format(str(BMI))
     
-    show_messagebox(message)
+    show_messagebox('Result',message)
 
-def show_messagebox(message) : 
-    messagebox.showinfo('Result',message)
+def show_messagebox(status,message) : 
+    messagebox.showinfo(status,message)
 
 button_cal =  Button(GUI,text='Calculate', command=CAL_BMI, font=('Angsana New',16)).grid(
     row=4,column=0,sticky='ew',pady=4)
